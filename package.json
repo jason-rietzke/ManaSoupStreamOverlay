@@ -1,0 +1,22 @@
+{
+  "name": "mso",
+  "version": "0.9.0",
+  "description": "A ManaSoup Twitch streaming overlay",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jason-rietzke/ManaSoupStreamOverlay.git"
+  },
+  "author": "Jason Rietzke (LamaCap)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jason-rietzke/ManaSoupStreamOverlay/issues"
+  },
+  "homepage": "https://github.com/jason-rietzke/ManaSoupStreamOverlay#readme",
+  "dependencies": {
+    "node": "^15.7.0"
+  }
+}
