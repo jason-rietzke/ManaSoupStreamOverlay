@@ -153,6 +153,10 @@ function getFeaturedEmotes(username) {
 			return ['🍪', '🦙'];
 		case 'littlesisterunicorn':
 			return ['🦄', '❤️'];
+		case 'vermonicus':
+			return ['🐉'];
+		case 'derrudl':
+			return ['🪨'];
 	}
 	return [];
 }
