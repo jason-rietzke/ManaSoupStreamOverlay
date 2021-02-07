@@ -4,7 +4,7 @@
   "description": "A ManaSoup Twitch streaming overlay",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "config": "node config.js",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/jason-rietzke/ManaSoupStreamOverlay#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "node": "^15.7.0",
     "tmi.js": "^1.7.1",
     "ws": "^7.4.0"
