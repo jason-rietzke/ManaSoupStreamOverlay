@@ -128,12 +128,13 @@ client.on("subscription", (channel, username, method, message, userstate) => {
 // Receiving Cheer (Bits)
 client.on("cheer", (channel, tags, message) => {
 	console.log(tags['bits'], 'bits by', tags['display-name']);
+	const amount = ((parseInt(tags['bits']) / 10) < 200 ? (parseInt(tags['bits']) / 10) : 200);
 	for (const socket of sockets) {
 		socket.send(JSON.stringify({
 			topic: 'cheer',
 			message: `${tags['display-name']} gönnt ${tags['bits']} Bits: ${message}`,
 			color: tags['color'],
-			amount: (parseInt(tags['bits']) / 10)
+			amount: amount
 		}));
 	}
 });
