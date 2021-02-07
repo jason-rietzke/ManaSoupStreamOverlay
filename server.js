@@ -46,11 +46,11 @@ let server = http.createServer((req, res) => {
 	switch (urlPath) {
 		case '/':
 		case '/index.html':
-			return res.end(getPage('greedings/index.html'));
+			return res.end(getPage('greetings/index.html'));
 		case '/style.css':
-			return res.end(getPage('greedings/style.css'));
+			return res.end(getPage('greetings/style.css'));
 		case '/app.js':
-			return res.end(getPage('greedings/app.js'));
+			return res.end(getPage('greetings/app.js'));
 		default:
 			return res.statusCode = 404;
 	}
@@ -134,14 +134,28 @@ client.on("cheer", (channel, tags, message) => {
 client.on("redeem", (channel, username, rewardType, tags, message) => {
 	console.log('Redeem:', `${username}: ${message} got ${rewardType} with tags: ${tags}`);
 	if (rewardType === '410bf0ce-c8e5-44e4-a5a9-f868e3a538da') {
+
+		const featuredEmotes = getFeaturedEmotes(username);
+
 		for (const socket of sockets) {
 			socket.send(JSON.stringify({
 				message: `${tags['display-name']} grüßt ${message}`,
-				color: tags['color']
+				color: tags['color'],
+				featuredEmotes : featuredEmotes
 			}));
 		}
 	}
 });
+
+function getFeaturedEmotes(username) {
+	switch (username) {
+		case 'lamacap':
+			return ['🍪', '🦙'];
+		case 'littlesisterunicorn':
+			return ['🦄', '❤️'];
+	}
+	return [];
+}
 
 // ----------------
 
