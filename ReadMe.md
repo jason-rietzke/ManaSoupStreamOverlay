@@ -23,4 +23,4 @@ npm start
 ```
 As long as the bot is running you have to keep the terminal open!
 
-To use the overlay in your OBS you have to create a new BrowserSource, scale it fullscreen and 2515x1415 and enter ``http://localhost:8080/`` as the URL.
+To use the overlay in your OBS you have to create a new BrowserSource, scale it fullscreen and enter ``http://localhost:8080/`` as the URL.

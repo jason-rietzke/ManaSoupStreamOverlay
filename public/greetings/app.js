@@ -64,8 +64,8 @@ function createGreeting(data) {
 			y: window.innerHeight
 		},
 		{
-			x: getRandom(-3, 3),
-			y: getRandom(9, 13)
+			x: getRandom(-(window.innerWidth*0.001), (window.innerWidth*0.001)),
+			y: getRandom(window.innerHeight*0.008, window.innerHeight*0.01)
 		});
 	
 	setTimeout(() => {
@@ -95,12 +95,12 @@ function createGreeting(data) {
 
 			move(emoteElement, 
 				{
-					x: startX + getRandom(-200, 200),
+					x: startX + getRandom(-100, 100),
 					y: window.innerHeight
 				},
 				{
-					x: getRandom(-2, 2),
-					y: getRandom(10, 14)
+					x: getRandom(-(window.innerWidth*0.001), (window.innerWidth*0.001)),
+					y: getRandom(window.innerHeight*0.008, window.innerHeight*0.01)
 				});
 			
 			setTimeout(() => {
@@ -139,8 +139,8 @@ function createCheer(data) {
 			y: window.innerHeight
 		},
 		{
-			x: getRandom(-3, 3),
-			y: getRandom(9, 13)
+			x: getRandom(-(window.innerWidth*0.001), (window.innerWidth*0.001)),
+			y: getRandom(window.innerHeight*0.008, window.innerHeight*0.01)
 		});
 	
 	setTimeout(() => {
@@ -166,12 +166,12 @@ function createCheer(data) {
 
 		move(cheerEmote, 
 			{
-				x: startX + getRandom(-200, 200),
+				x: startX + getRandom(-100, 100),
 				y: window.innerHeight
 			},
 			{
-				x: getRandom(-2, 2),
-				y: getRandom(10, 14)
+				x: getRandom(-(window.innerWidth*0.001), (window.innerWidth*0.001)),
+				y: getRandom(window.innerHeight*0.008, window.innerHeight*0.01)
 			});
 		
 		setTimeout(() => {
@@ -198,7 +198,7 @@ function move(element, position, vector) {
 		newPos.y -= vector.y;
 		element.style.left = newPos.x + 'px';
 		element.style.top = newPos.y + 'px';
-		newVec.y = newVec.y - (0.04 + (newVec.y / 500));
+		newVec.y = newVec.y - ((window.innerHeight*0.00003) + (newVec.y / 500));
 		setTimeout(() => {
 			move(element, newPos, newVec);
 		}, 10);
