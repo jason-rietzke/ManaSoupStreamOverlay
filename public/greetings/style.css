@@ -15,7 +15,16 @@ body {
 	text-align: center;
 	font-weight: 700;
 	width: 20vw;
+	transition: all 1s;
+}
 
+.cheer {
+	position: absolute;
+	opacity: 1;
+	font-size: 42px;
+	text-align: center;
+	font-weight: 700;
+	width: 30vw;
 	transition: all 1s;
 }
 

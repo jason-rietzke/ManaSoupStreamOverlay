@@ -127,7 +127,15 @@ client.on("subscription", (channel, username, method, message, userstate) => {
 
 // Receiving Cheer (Bits)
 client.on("cheer", (channel, tags, message) => {
-	console.log("CHEER");
+	console.log(tags['bits'], 'bits by', tags['display-name']);
+	for (const socket of sockets) {
+		socket.send(JSON.stringify({
+			topic: 'cheer',
+			message: `${tags['display-name']} gönnt ${tags['bits']} Bits: ${message}`,
+			color: tags['color'],
+			amount: (parseInt(tags['bits']) / 10)
+		}));
+	}
 });
 
 // Receiving Redeem (ChannelPoint Events)
@@ -139,6 +147,7 @@ client.on("redeem", (channel, username, rewardType, tags, message) => {
 
 		for (const socket of sockets) {
 			socket.send(JSON.stringify({
+				topic: 'greetings',
 				message: `${tags['display-name']} grüßt ${message}`,
 				color: tags['color'],
 				featuredEmotes : featuredEmotes

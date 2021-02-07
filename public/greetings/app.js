@@ -23,16 +23,22 @@ function connect() {
 	
 	ws.addEventListener('message', (e) => {
 		const data = JSON.parse(e.data);
-		creategreeting(data);
+		switch (data.topic) {
+			case 'greetings':
+				return createGreeting(data);
+			case 'cheer':
+				return createCheer(data);
+		}
 	});
 }
 
 connect();
 
 
-function creategreeting(data) {
+function createGreeting(data) {
 	const container = document.createElement('div');
 	container.classList.add('greeting', 'hidden');
+	container.style.zIndex = 2;
 
 	const twitchEmote = document.createElement('img');
 	twitchEmote.setAttribute('src', 'https://static-cdn.jtvnw.net/emoticons/v2/303232723/default/dark/3.0');
@@ -83,12 +89,13 @@ function creategreeting(data) {
 			const emoteElement = document.createElement('span');
 			emoteElement.classList.add('greeting', 'hidden');
 			emoteElement.textContent = emote;
+			emoteElement.style.zIndex = 1;
 			
 			document.body.appendChild(emoteElement);
 
 			move(emoteElement, 
 				{
-					x: startX + getRandom(- 50, 50),
+					x: startX + getRandom(-200, 200),
 					y: window.innerHeight
 				},
 				{
@@ -107,6 +114,76 @@ function creategreeting(data) {
 				}, 1000);
 			}, getRandom(6, 8) * 1000);
 		}
+	}
+
+}
+
+function createCheer(data) {
+	const cheerMessage = document.createElement('span');
+	cheerMessage.classList.add('greeting', 'hidden');
+	cheerMessage.textContent = data.message;
+	cheerMessage.style.color = data.color;
+	cheerMessage.style.zIndex = 2;
+
+	document.body.appendChild(cheerMessage);
+
+	const center = (window.innerWidth / 2) - (cheerMessage.getBoundingClientRect().width / 2);
+	const startX = getRandom(center - (center/20), center + (center/20));
+
+	cheerMessage.style.left = startX + 'px'
+	cheerMessage.style.top = window.innerHeight + 'px';
+
+	move(cheerMessage, 
+		{
+			x: startX,
+			y: window.innerHeight
+		},
+		{
+			x: getRandom(-3, 3),
+			y: getRandom(9, 13)
+		});
+	
+	setTimeout(() => {
+		cheerMessage.classList.remove('hidden');
+	}, 1000);
+
+	setTimeout(() => {
+		cheerMessage.classList.add('hidden');
+		setTimeout(() => {
+			cheerMessage.remove();
+		}, 1000);
+	}, getRandom(6, 8) * 1000);
+
+
+	// cheer emotes
+	for (i = 0; i < data.amount; i++) {
+		const cheerEmote = document.createElement('span');
+		cheerEmote.classList.add('greeting', 'hidden');
+		cheerEmote.textContent = '💎';
+		cheerEmote.style.zIndex = 1;
+		
+		document.body.appendChild(cheerEmote);
+
+		move(cheerEmote, 
+			{
+				x: startX + getRandom(-200, 200),
+				y: window.innerHeight
+			},
+			{
+				x: getRandom(-2, 2),
+				y: getRandom(10, 14)
+			});
+		
+		setTimeout(() => {
+			cheerEmote.classList.remove('hidden');
+		}, 1000);
+	
+		setTimeout(() => {
+			cheerEmote.classList.add('hidden');
+			setTimeout(() => {
+				cheerEmote.remove();
+			}, 1000);
+		}, getRandom(6, 8) * 1000);
 	}
 
 }
