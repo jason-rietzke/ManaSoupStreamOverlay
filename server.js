@@ -142,20 +142,53 @@ client.on("cheer", (channel, tags, message) => {
 // Receiving Redeem (ChannelPoint Events)
 client.on("redeem", (channel, username, rewardType, tags, message) => {
 	console.log('Redeem:', `${username}: ${message} got ${rewardType} with tags: ${tags}`);
-	if (rewardType === '410bf0ce-c8e5-44e4-a5a9-f868e3a538da') {
+	
+	let topic = '';
+	let notification = '';
+	switch (rewardType) {
+		case '410bf0ce-c8e5-44e4-a5a9-f868e3a538da':
+			topic = 'greetings';
+			notification = getGreetingsNotification(tags, message);
+			break;
+		case 'd63de6b1-2dab-42fd-a2d7-6aad829ba9fd':
+			topic = 'good-night';
+			notification = getGoodNightNotification(tags, message);
+			break;
+	}
 
-		const featuredEmotes = getFeaturedEmotes(username);
-
-		for (const socket of sockets) {
-			socket.send(JSON.stringify({
-				topic: 'greetings',
-				message: `${tags['display-name']} grüßt ${message}`,
-				color: tags['color'],
-				featuredEmotes : featuredEmotes
-			}));
-		}
+	const featuredEmotes = getFeaturedEmotes(username);
+	for (const socket of sockets) {
+		socket.send(JSON.stringify({
+			topic: topic,
+			message: notification,
+			color: tags['color'],
+			featuredEmotes : featuredEmotes
+		}));
 	}
 });
+
+function getGreetingsNotification(tags, message) {
+	const notifications = [
+		`${tags['display-name']} grüßt ${message}`,
+		`${tags['display-name']} freut sich ${message} zu sehen`,
+		`${tags['display-name']} umarmt ${message}`,
+		`${tags['display-name']} hat ${message} erwartet`,
+		`${tags['display-name']} rennt freudig auf ${message} zu`
+	]
+	const index = parseInt(getRandom(0, notifications.length - 1));
+	return notifications[index];
+}
+
+function getGoodNightNotification(tags, message) {
+	const notifications = [
+		`${tags['display-name']} wünscht ${message} eine gute Nacht`,
+		`${tags['display-name']} wünscht ${message} süße Träume`,
+		`${tags['display-name']} gibt ${message} einen Gutenachtkuss`,
+		`${tags['display-name']} vermisst ${message} jetzt schon`
+	]
+	const index = parseInt(getRandom(0, notifications.length - 1));
+	return notifications[index];
+}
 
 function getFeaturedEmotes(username) {
 	switch (username) {
@@ -176,4 +209,8 @@ function getFeaturedEmotes(username) {
 
 function getPage(fileName) {
 	return fs.readFileSync(path.join(path.join(__dirname, '/public/'), fileName));
+}
+
+function getRandom(min, max) {
+    return (Math.random() * (max - min + 1)) + min;
 }
