@@ -16,7 +16,7 @@ Now open the new .env file and enter the ``Channel_Name`` you want the bot to li
 
 ---
 
-### Hot to use it
+### How to use it
 After you entered all your information, you can move on and run the bot by entering:
 ```
 npm start
