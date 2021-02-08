@@ -8,13 +8,13 @@ body {
 	width: 100vw;
 }
 
-.greeting {
+.message {
 	position: absolute;
 	opacity: 1;
 	font-size: 42px;
 	text-align: center;
 	font-weight: 700;
-	width: 20vw;
+	width: 40vw;
 	transition: all 1s;
 }
 

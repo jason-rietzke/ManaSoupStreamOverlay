@@ -35,21 +35,21 @@ function connect() {
 connect();
 
 
-function createGreeting(data) {
+function createMessage(data, emote) {
 	const container = document.createElement('div');
-	container.classList.add('greeting', 'hidden');
+	container.classList.add('message', 'hidden');
 	container.style.zIndex = 2;
 
 	const twitchEmote = document.createElement('img');
-	twitchEmote.setAttribute('src', 'https://static-cdn.jtvnw.net/emoticons/v2/303232723/default/dark/3.0');
+	twitchEmote.setAttribute('src', emote);
 
-	const greeting = document.createElement('span');
-	greeting.textContent = data.message;
-	greeting.style.color = data.color;
+	const message = document.createElement('span');
+	message.textContent = data.message;
+	message.style.color = data.color;
 
 	container.appendChild(twitchEmote);
 	container.appendChild(document.createElement('br'));
-	container.appendChild(greeting);
+	container.appendChild(message);
 	document.body.appendChild(container);
 
 	const center = (window.innerWidth / 2) - (container.getBoundingClientRect().width / 2);
@@ -87,7 +87,7 @@ function createGreeting(data) {
 			const emoteIndex = parseInt(getRandom(0, (data.featuredEmotes.length - 1)));
 			const emote = data.featuredEmotes[emoteIndex];
 			const emoteElement = document.createElement('span');
-			emoteElement.classList.add('greeting', 'hidden');
+			emoteElement.classList.add('message', 'hidden');
 			emoteElement.textContent = emote;
 			emoteElement.style.zIndex = 1;
 			
@@ -118,10 +118,11 @@ function createGreeting(data) {
 
 }
 
+
 function createCheer(data) {
 
 	const container = document.createElement('div');
-	container.classList.add('greeting', 'hidden');
+	container.classList.add('message', 'hidden');
 	container.style.zIndex = 2;
 
 	const twitchEmote = document.createElement('img');
@@ -167,7 +168,7 @@ function createCheer(data) {
 	// cheer emotes
 	for (i = 0; i < data.amount; i++) {
 		const cheerEmote = document.createElement('span');
-		cheerEmote.classList.add('greeting', 'hidden');
+		cheerEmote.classList.add('message', 'hidden');
 		cheerEmote.textContent = '💎';
 		cheerEmote.style.zIndex = 1;
 		
