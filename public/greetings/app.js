@@ -25,7 +25,11 @@ function connect() {
 		const data = JSON.parse(e.data);
 		switch (data.topic) {
 			case 'greetings':
-				return createGreeting(data);
+				return createMessage(data, 'https://static-cdn.jtvnw.net/emoticons/v2/303232723/default/dark/3.0');
+			case 'good-night':
+				return createMessage(data, 'https://static-cdn.jtvnw.net/emoticons/v2/303232736/default/dark/3.0');
+			case 'subscription':
+				return createMessage(data, 'https://static-cdn.jtvnw.net/emoticons/v2/303232727/default/dark/3.0');
 			case 'cheer':
 				return createCheer(data);
 		}
