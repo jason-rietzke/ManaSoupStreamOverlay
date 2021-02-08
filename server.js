@@ -121,8 +121,42 @@ client.on("raided", (channel, username, viewers, tags) => {
 });
 
 // Receiving Subscription
-client.on("subscription", (channel, username, method, message, userstate) => {
-	console.log("SUBSCRIPTION");
+client.on("subscription", (channel, username, method, message, tags) => {
+	for (const socket of sockets) {
+		socket.send(JSON.stringify({
+			topic: 'subscription',
+			message: `${tags['display-name']} gönnt sich eine ManaSuppe: ${message}`,
+			color: tags['color'],
+			featuredEmotes : ['❤️']
+		}));
+	}
+});
+
+// Receiving Resub
+client.on("resub", (channel, username, months, message, tags, methods) => {
+    let cumulativeMonths = ~~tags["msg-param-cumulative-months"];
+	for (const socket of sockets) {
+		socket.send(JSON.stringify({
+			topic: 'subscription',
+			message: `${tags['display-name']} gönnt sich die ${cumulativeMonths}. ManaSuppe: ${message}`,
+			color: tags['color'],
+			featuredEmotes : ['❤️']
+		}));
+	}
+});
+
+// Receiving gifted Sub
+client.on("subgift", (channel, username, streakMonths, recipient, methods, tags) => {
+    let senderCount = ~~tags["msg-param-sender-count"];
+	let cumulativeMonths = ~~tags["msg-param-cumulative-months"];
+	for (const socket of sockets) {
+		socket.send(JSON.stringify({
+			topic: 'subscription',
+			message: `${tags['display-name']} spendiert ${senderCount} ManaSuppen`,
+			color: tags['color'],
+			featuredEmotes : ['❤️']
+		}));
+	}
 });
 
 // Receiving Cheer (Bits)
