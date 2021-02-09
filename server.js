@@ -134,7 +134,7 @@ client.on("subscription", (channel, username, method, message, tags) => {
 
 // Receiving Resub
 client.on("resub", (channel, username, months, message, tags, methods) => {
-    let cumulativeMonths = ~~tags["msg-param-cumulative-months"];
+    let cumulativeMonths = tags["msg-param-cumulative-months"];
 	for (const socket of sockets) {
 		socket.send(JSON.stringify({
 			topic: 'subscription',
@@ -147,7 +147,7 @@ client.on("resub", (channel, username, months, message, tags, methods) => {
 
 // Receiving gifted Sub
 client.on("subgift", (channel, username, streakMonths, recipient, methods, tags) => {
-    let senderCount = ~~tags["msg-param-sender-count"];
+    let senderCount = tags["msg-param-sender-count"];
 	let cumulativeMonths = ~~tags["msg-param-cumulative-months"];
 	for (const socket of sockets) {
 		socket.send(JSON.stringify({
@@ -226,6 +226,10 @@ function getGoodNightNotification(tags, message) {
 
 function getFeaturedEmotes(username) {
 	switch (username) {
+		case 'manasoup_dev':
+			return ['🥃', '🍺'];
+		case 'snackerony':
+			return ['☕️'];
 		case 'lamacap':
 			return ['🍪', '🦙'];
 		case 'littlesisterunicorn':
@@ -234,6 +238,10 @@ function getFeaturedEmotes(username) {
 			return ['🐉'];
 		case 'derrudl':
 			return ['🪨'];
+		case 'zefix_aoe':
+			return ['⚔️', '🗡'];
+		case 'mrs_bloed':
+			return ['🦶'];
 	}
 	return [];
 }
