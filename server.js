@@ -125,7 +125,7 @@ client.on("subscription", (channel, username, method, message, tags) => {
 	for (const socket of sockets) {
 		socket.send(JSON.stringify({
 			topic: 'subscription',
-			message: `${tags['display-name']} gönnt sich eine ManaSuppe: ${message}`,
+			message: `${tags['display-name']} gönnt sich eine ManaSuppe${message ? ': ' + message : ''}`,
 			color: tags['color'],
 			featuredEmotes : ['❤️']
 		}));
@@ -138,7 +138,7 @@ client.on("resub", (channel, username, months, message, tags, methods) => {
 	for (const socket of sockets) {
 		socket.send(JSON.stringify({
 			topic: 'subscription',
-			message: `${tags['display-name']} gönnt sich die ${cumulativeMonths}. ManaSuppe: ${message}`,
+			message: `${tags['display-name']} gönnt sich die ${cumulativeMonths}. ManaSuppe${message ? ': ' + message : ''}`,
 			color: tags['color'],
 			featuredEmotes : ['❤️']
 		}));
@@ -147,8 +147,7 @@ client.on("resub", (channel, username, months, message, tags, methods) => {
 
 // Receiving gifted Sub
 client.on("subgift", (channel, username, streakMonths, recipient, methods, tags) => {
-    let senderCount = tags["msg-param-sender-count"];
-	let cumulativeMonths = ~~tags["msg-param-cumulative-months"];
+    let senderCount = recipient.length;
 	for (const socket of sockets) {
 		socket.send(JSON.stringify({
 			topic: 'subscription',
