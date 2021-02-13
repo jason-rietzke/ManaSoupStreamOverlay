@@ -240,6 +240,12 @@ function getFeaturedEmotes(username) {
 			return ['⚔️', '🗡'];
 		case 'mrs_bloed':
 			return ['🦶'];
+		case 'karl_bloed':
+			return ['🦡'];
+		case 'rennsemmel81':
+			return ['🐙'];
+		case 'r5_dev':
+			return ['5️⃣'];
 	}
 	return [];
 }
