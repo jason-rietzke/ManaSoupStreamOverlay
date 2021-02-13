@@ -147,11 +147,10 @@ client.on("resub", (channel, username, months, message, tags, methods) => {
 
 // Receiving gifted Sub
 client.on("subgift", (channel, username, streakMonths, recipient, methods, tags) => {
-    let senderCount = recipient.length;
 	for (const socket of sockets) {
 		socket.send(JSON.stringify({
 			topic: 'subscription',
-			message: `${tags['display-name']} spendiert ${senderCount} ManaSuppen`,
+			message: `${tags['display-name']} spendiert eine ManaSuppen an ${recipient}`,
 			color: tags['color'],
 			featuredEmotes : ['❤️']
 		}));
