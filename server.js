@@ -234,6 +234,8 @@ function getFeaturedEmotes(username) {
 			return ['🦄', '❤️'];
 		case 'vermonicus':
 			return ['🐉'];
+		case 'blackgirl3000':
+			return ['🖌', '🎨'];
 		case 'derrudl':
 			return ['🪨'];
 		case 'zefix_aoe':
