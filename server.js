@@ -147,11 +147,10 @@ client.on("resub", (channel, username, months, message, tags, methods) => {
 
 // Receiving gifted Sub
 client.on("subgift", (channel, username, streakMonths, recipient, methods, tags) => {
-    let senderCount = recipient.length;
 	for (const socket of sockets) {
 		socket.send(JSON.stringify({
 			topic: 'subscription',
-			message: `${tags['display-name']} spendiert ${senderCount} ManaSuppen`,
+			message: `${tags['display-name']} spendiert eine ManaSuppen an ${recipient}`,
 			color: tags['color'],
 			featuredEmotes : ['❤️']
 		}));
@@ -235,12 +234,20 @@ function getFeaturedEmotes(username) {
 			return ['🦄', '❤️'];
 		case 'vermonicus':
 			return ['🐉'];
+		case 'blackgirl3000':
+			return ['🖌', '🎨'];
 		case 'derrudl':
 			return ['🪨'];
 		case 'zefix_aoe':
 			return ['⚔️', '🗡'];
 		case 'mrs_bloed':
 			return ['🦶'];
+		case 'karl_bloed':
+			return ['🦡'];
+		case 'rennsemmel81':
+			return ['🐙'];
+		case 'r5_dev':
+			return ['5️⃣'];
 	}
 	return [];
 }

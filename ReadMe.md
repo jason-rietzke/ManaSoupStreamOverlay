@@ -9,7 +9,7 @@ git clone https://github.com/jason-rietzke/ManaSoupStreamOverlay.git
 ```
 After this you move into the *ManaSoupStreamingOverlay* directory and enter 
 ```
-npm instal
+npm install
 npm run config
 ```
 Now open the new .env file and enter the ``Channel_Name`` you want the bot to listen to, your ``Client_Name`` and your ``OAuth``Token (you can generate the OAuth token [here](https://twitchapps.com/tmi/))
