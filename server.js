@@ -5,8 +5,6 @@
 
 "use strict";
 
-require("dotenv/config");
-
 const fs = require("fs");
 const url = require("url");
 const http = require("http");
@@ -14,10 +12,9 @@ const path = require("path");
 const tmi = require("tmi.js");
 const WebSocket = require("ws");
 
-const port = 8080;
-const host = "localhost";
+const port = 80;
 
-const wss = new WebSocket.Server({ port: 8081 });
+const wss = new WebSocket.Server({ port: 81 });
 
 const sockets = [];
 
@@ -64,8 +61,8 @@ server.on("error", (err) => {
 	console.log(err);
 });
 
-server.listen(port, host, () => {
-	console.log(`Server running at http://${host}:${port}/`);
+server.listen(port, () => {
+	console.log(`Server running at http://manasoup.lamacap.dev:${port}/`);
 });
 
 // -------- TMI Client --------
@@ -99,14 +96,13 @@ client.on("disconnected", (reason) => {
 // Receiving a Message
 client.on("message", (channel, tags, message, self) => {
 	if (self) return;
-	if (message.toLowerCase() === "!lurk") {
-		if (lurkUsers.includes(tags["display-name"])) {
-			lurkUsers.splice(lurkUsers.indexOf(tags["display-name"]), 1);
-			client.say(channel, `WB @${tags["display-name"]}, schön, dass du zurück bist <3`);
-		} else {
-			lurkUsers.push(tags["display-name"]);
-			client.say(channel, `@${tags["display-name"]} bis Später :)`);
-		}
+	if (lurkUsers.includes(tags["display-name"])) {
+		lurkUsers.splice(lurkUsers.indexOf(tags["display-name"]), 1);
+		client.say(channel, `WB @${tags["display-name"]}, schön, dass du zurück bist <3`);
+	}
+	if (message.toLowerCase() === "!lurk" && !lurkUsers.includes(tags["display-name"])) {
+		lurkUsers.push(tags["display-name"]);
+		client.say(channel, `@${tags["display-name"]} bis Später :)`);
 	}
 });
 
