@@ -1,12 +1,12 @@
 let retryCounter = 0;
 function connect() {
-	let ws = new WebSocket('ws://localhost:8090');
+	let ws = new WebSocket('ws://localhost:8081');
 
 	ws.addEventListener('error', (e) => {
 		console.error('error:', e);
 		if (retryCounter < 5) {
 			setTimeout(() => {
-				connect();
+				// connect();
 			}, 2000);
 		}
 	});
@@ -17,7 +17,7 @@ function connect() {
 	ws.addEventListener('close', (e) => {
 		console.log('socket closed');
 		setTimeout(() => {
-			connect();
+			// connect();
 		}, 2000);
 	});
 	
