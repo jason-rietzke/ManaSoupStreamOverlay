@@ -14,7 +14,24 @@ const WebSocket = require("ws");
 
 const port = 80;
 
-const wss = new WebSocket.Server({ port: 81 });
+let server = http.createServer((req, res) => {
+	res.statusCode = 200;
+	res.setHeader("Content-Type", "text/html");
+	const urlPath = url.parse(req.url).pathname;
+	switch (urlPath) {
+		case "/":
+		case "/index.html":
+			return res.end(getPage("greetings/index.html"));
+		case "/style.css":
+			return res.end(getPage("greetings/style.css"));
+		case "/app.js":
+			return res.end(getPage("greetings/app.js"));
+		default:
+			return (res.statusCode = 404);
+	}
+});
+
+const wss = new WebSocket.Server({ server: server });
 
 const sockets = [];
 
@@ -34,27 +51,6 @@ wss.on("connection", (ws) => {
 			}
 		}
 	});
-});
-
-let server = http.createServer((req, res) => {
-	res.statusCode = 200;
-	res.setHeader("Content-Type", "text/html");
-	const urlPath = url.parse(req.url).pathname;
-	switch (urlPath) {
-		case "/":
-		case "/index.html":
-			return res.end(getPage("greetings/index.html"));
-		case "/style.css":
-			return res.end(getPage("greetings/style.css"));
-		case "/app.js":
-			return res.end(getPage("greetings/app.js"));
-		default:
-			return (res.statusCode = 404);
-	}
-});
-
-server.addListener("upgrade", (req, res, head) => {
-	// Do Websocket stuff
 });
 
 server.on("error", (err) => {

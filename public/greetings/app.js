@@ -1,6 +1,6 @@
 let retryCounter = 0;
 function connect() {
-	let ws = new WebSocket("ws://manasoup.lamacap.dev:81");
+	let ws = new WebSocket("wss://manasoup.lamacap.dev");
 
 	ws.addEventListener("error", (e) => {
 		console.error("error:", e);
