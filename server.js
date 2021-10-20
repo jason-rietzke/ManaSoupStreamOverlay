@@ -114,7 +114,18 @@ client.on("hosting", (channel, target, viewers) => {
 
 // Receiving Rading Event
 client.on("raided", (channel, username, viewers, tags) => {
-	console.log("RAIDED");
+	client.say(
+		channel,
+		`@${tags["display-name"]} bringt ${viewers} geile Schlangen mit – Schaut auf jeden Fall vorbei https://twitch.tv/${username}`
+	);
+	for (const socket of sockets) {
+		socket.send(
+			JSON.stringify({
+				topic: "raid",
+				amount: viewers,
+			})
+		);
+	}
 });
 
 // Receiving Subscription

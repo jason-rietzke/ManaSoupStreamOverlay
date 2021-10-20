@@ -30,6 +30,8 @@ function connect() {
 				return createMessage(data, "https://static-cdn.jtvnw.net/emoticons/v2/303232736/default/dark/3.0");
 			case "subscription":
 				return createMessage(data, "https://static-cdn.jtvnw.net/emoticons/v2/303232727/default/dark/3.0");
+			case "raid":
+				return createRaid(data, "https://static-cdn.jtvnw.net/emoticons/v2/303232727/default/dark/3.0");
 			case "cheer":
 				return createCheer(data);
 		}
@@ -120,6 +122,49 @@ function createMessage(data, emote) {
 				}, 1000);
 			}, getRandom(6, 8) * 1000);
 		}
+	}
+}
+
+function createRaid(data, emote) {
+	for (let i = 0; i < data.amount; i++) {
+		const container = document.createElement("div");
+		container.classList.add("message", "hidden");
+		container.style.zIndex = 2;
+
+		const twitchEmote = document.createElement("img");
+		twitchEmote.setAttribute("src", emote);
+
+		container.appendChild(twitchEmote);
+		document.body.appendChild(container);
+
+		const center = window.innerWidth / 2 - container.getBoundingClientRect().width / 2;
+		const startX = getRandom(center - center / 20, center + center / 20);
+
+		container.style.left = startX + "px";
+		container.style.top = window.innerHeight + "px";
+
+		move(
+			container,
+			{
+				x: startX,
+				y: window.innerHeight + window.innerHeight * 0.05,
+			},
+			{
+				x: getRandom(-(window.innerWidth * 0.01), window.innerWidth * 0.01),
+				y: getRandom(window.innerHeight * 0.08, window.innerHeight * 0.15),
+			}
+		);
+
+		setTimeout(() => {
+			container.classList.remove("hidden");
+		}, 1000);
+
+		setTimeout(() => {
+			container.classList.add("hidden");
+			setTimeout(() => {
+				container.remove();
+			}, 1000);
+		}, getRandom(6, 8) * 1000);
 	}
 }
 
