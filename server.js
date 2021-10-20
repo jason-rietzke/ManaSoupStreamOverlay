@@ -104,7 +104,18 @@ client.on("message", (channel, tags, message, self) => {
 
 // Receiving Host Event
 client.on("hosted", (channel, username, viewers, autohost) => {
-	console.log("HOST");
+	client.say(
+		channel,
+		`@${username} bringt ${viewers} geile Schlangen mit – Schaut auf jeden Fall vorbei https://twitch.tv/${username}`
+	);
+	for (const socket of sockets) {
+		socket.send(
+			JSON.stringify({
+				topic: "raid",
+				amount: viewers,
+			})
+		);
+	}
 });
 
 // Doing Host Event
