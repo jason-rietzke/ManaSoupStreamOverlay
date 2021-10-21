@@ -103,10 +103,14 @@ client.on("message", (channel, tags, message, self) => {
 
 	if (message.toLowerCase() === "!lurklist") {
 		const message = "@" + tags["display-name"] + ": ";
-		lurkUsers.forEach((user) => {
-			message += user + " – ";
-		});
-		message.slice(0, -3);
+		if (lurkUsers.length > 0) {
+			lurkUsers.forEach((user) => {
+				message += user + " – ";
+			});
+			message.slice(0, -3);
+		} else {
+			message += "jeder ist extrem aufmerksam :P";
+		}
 		client.say(channel, message);
 	}
 });
