@@ -102,7 +102,7 @@ client.on("message", (channel, tags, message, self) => {
 	}
 
 	if (message.toLowerCase() === "!lurklist") {
-		const message = "@" + tags["display-name"] + ": ";
+		let message = "@" + tags["display-name"] + ": ";
 		if (lurkUsers.length > 0) {
 			lurkUsers.forEach((user) => {
 				message += user + " – ";
