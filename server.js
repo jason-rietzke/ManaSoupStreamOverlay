@@ -107,7 +107,7 @@ client.on("message", (channel, tags, message, self) => {
 			lurkUsers.forEach((user) => {
 				message += user + " – ";
 			});
-			message.slice(0, -3);
+			message = message.substring(0, message.length - 3);
 		} else {
 			message += "jeder ist extrem aufmerksam :P";
 		}
