@@ -92,13 +92,22 @@ client.on("disconnected", (reason) => {
 // Receiving a Message
 client.on("message", (channel, tags, message, self) => {
 	if (self) return;
+
 	if (lurkUsers.includes(tags["display-name"])) {
 		lurkUsers.splice(lurkUsers.indexOf(tags["display-name"]), 1);
 		client.say(channel, `WB @${tags["display-name"]}, schön, dass du zurück bist <3`);
-	}
-	if (message.toLowerCase() === "!lurk" && !lurkUsers.includes(tags["display-name"])) {
+	} else if (message.toLowerCase() === "!lurk" && !lurkUsers.includes(tags["display-name"])) {
 		lurkUsers.push(tags["display-name"]);
 		client.say(channel, `@${tags["display-name"]} bis Später :)`);
+	}
+
+	if (message.toLowerCase() === "!lurklist") {
+		const message = "@" + tags["display-name"] + ": ";
+		lurkUsers.forEach((user) => {
+			message += user + " – ";
+		});
+		message.slice(0, -3);
+		client.say(channel, message);
 	}
 });
 
