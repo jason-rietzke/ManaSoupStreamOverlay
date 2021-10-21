@@ -6,7 +6,7 @@ function connect() {
 		console.error("error:", e);
 		if (retryCounter < 5) {
 			setTimeout(() => {
-				// connect();
+				connect();
 			}, 2000);
 		}
 	});
@@ -17,7 +17,7 @@ function connect() {
 	ws.addEventListener("close", (e) => {
 		console.log("socket closed");
 		setTimeout(() => {
-			// connect();
+			connect();
 		}, 2000);
 	});
 
